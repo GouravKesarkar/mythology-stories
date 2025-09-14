@@ -113,6 +113,27 @@
     function goToLanguagePage(storyId) {
       window.location.href = "language.html?story=" + storyId;
     }
-  </script>
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    
+      // Create a custom Install button
+      const btn = document.createElement('button');
+      btn.textContent = "Install App";
+      btn.style.cssText = "position:fixed;bottom:20px;right:20px;padding:10px 15px;background:#8b0000;color:white;border:none;border-radius:8px;cursor:pointer;";
+      document.body.appendChild(btn);
+    
+      btn.addEventListener('click', () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+          btn.remove();
+        });
+      });
+    });
+    </script>
+    
 </body>
 </html>
