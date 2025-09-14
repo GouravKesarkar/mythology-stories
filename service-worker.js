@@ -1,4 +1,4 @@
-const CACHE_NAME = "mythology-cache-v2"; // versioned cache
+const CACHE_NAME = "mythology-cache-v3"; // versioned cache
 const urlsToCache = [
   "index.html",
   "story.html",

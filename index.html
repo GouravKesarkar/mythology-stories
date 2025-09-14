@@ -110,9 +110,6 @@
   </footer>
 
   <script>
-    function goToLanguagePage(storyId) {
-      window.location.href = "language.html?story=" + storyId;
-    }
     let deferredPrompt;
     
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -133,6 +130,10 @@
         });
       });
     });
+
+    function goToLanguagePage(storyId) {
+      window.location.href = "language.html?story=" + storyId;
+    }
     </script>
     
 </body>
