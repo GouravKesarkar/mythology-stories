@@ -5,6 +5,7 @@ const urlsToCache = [
   "language.html",
   "index_story.html",
   "styles.css",
+  "app.js",
   "manifest.json",
   "stories.json",
   "icon.png"
