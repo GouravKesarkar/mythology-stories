@@ -5,13 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Story Index</title>
   <style>
+    /* --- Body layout --- */
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* full viewport height */
       background: linear-gradient(135deg, #fff8f0, #ffe6cc);
       color: #333;
     }
 
+    /* --- Header --- */
     header {
       display: flex;
       align-items: center;
@@ -23,11 +28,16 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
+    /* --- Main content --- */
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
     .section-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
-      padding: 20px;
     }
 
     .card {
@@ -51,22 +61,7 @@
       color: #8b0000;
     }
 
-    footer {
-        text-align: center;
-        padding: 12px 0;
-        font-size: 0.85rem;
-        color: #555;
-        background: #fff4e6; /* soft matching background with header gradient */
-        border-top: 1px solid #e0c8b0;
-        box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-        position: relative; /* keeps footer at bottom of content */
-    }
-
-    footer p {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-
+    /* --- Back button --- */
     .back-btn {
       display: inline-block;
       margin-right: 10px;
@@ -78,28 +73,40 @@
       transition: background 0.2s ease;
       font-size: 0.9rem;
     }
-  
+
     .back-btn:hover {
       background: #b22222;
     }
-  
+
+    /* --- Footer --- */
+    footer {
+      text-align: center;
+      padding: 12px 0;
+      font-size: 0.85rem;
+      color: #555;
+      background: #fff4e6;
+      border-top: 1px solid #e0c8b0;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+    }
+
+    footer p {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <a href="language.html?story=${storyId}" class="back-btn">⬅ Back to Language</a>
+    <a href="language.html?story=${storyId}" class="back-btn">⬅ Back</a>
     <span>📖 Story Index</span>
   </header>
-  
-  <style>
-    
-  </style>
-  
 
-  <section class="section-list" id="sectionList">
-    <!-- Sections will be inserted here -->
-  </section>
+  <main>
+    <section class="section-list" id="sectionList">
+      <!-- Sections will be inserted here -->
+    </section>
+  </main>
 
   <footer>
     <p>© 2025 Mythology Stories | Developed by Gourav Kesarkar</p>

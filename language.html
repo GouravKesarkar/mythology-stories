@@ -5,13 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Choose Language</title>
   <style>
+    /* --- Body layout --- */
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* full viewport height */
       background: linear-gradient(135deg, #fdf6e3, #ffe6cc);
       color: #333;
     }
 
+    /* --- Header --- */
     header {
       text-align: center;
       padding: 20px;
@@ -22,28 +27,13 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
     }
 
-    .back-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 16px;
-    background: #8b0000;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.2s ease;
-    text-align: center;
-  }
-
-  .back-btn:hover {
-    background: #a52a2a;
-  }
-
-    .container {
+    /* --- Main content --- */
+    main {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 80vh;
       padding: 20px;
     }
 
@@ -76,27 +66,43 @@
       color: #666;
     }
 
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: #8b0000;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+      text-align: center;
+    }
+
+    .back-btn:hover {
+      background: #a52a2a;
+    }
+
+    /* --- Footer --- */
     footer {
-        text-align: center;
-        padding: 12px 0;
-        font-size: 0.85rem;
-        color: #555;
-        background: #fff4e6; /* soft matching background with header gradient */
-        border-top: 1px solid #e0c8b0;
-        box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-        position: relative; /* keeps footer at bottom of content */
+      text-align: center;
+      padding: 12px 0;
+      font-size: 0.85rem;
+      color: #555;
+      background: #fff4e6;
+      border-top: 1px solid #e0c8b0;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
     }
 
     footer p {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
     }
   </style>
 </head>
 <body>
   <header>🌐 Choose Your Language</header>
 
-  <div class="container">
+  <main>
     <div class="card" onclick="goToIndex('hindi')">
       <h2>हिन्दी</h2>
       <p>Read in Hindi</p>
@@ -112,10 +118,9 @@
       <p>Read in English</p>
     </div>
 
-
-  <!-- Back button -->
-  <a href="index.html" class="back-btn">⬅ Back to Stories</a>
-  </div>
+    <!-- Back button -->
+    <a href="index.html" class="back-btn">⬅ Back to Stories</a>
+  </main>
 
   <footer>
     <p>© 2025 Mythology Stories | Developed by Gourav Kesarkar</p>
@@ -123,7 +128,6 @@
 
   <script>
     function goToIndex(language) {
-      // Navigate to index page with language parameter
       const urlParams = new URLSearchParams(window.location.search);
       const storyId = urlParams.get("story"); // carry forward selected story
       window.location.href = "index_story.html?story=" + storyId + "&lang=" + language;
