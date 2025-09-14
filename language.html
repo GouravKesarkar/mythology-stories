@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Language</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #fdf6e3, #ffe6cc);
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #8b0000;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+
+    .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: #8b0000;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    text-align: center;
+  }
+
+  .back-btn:hover {
+    background: #a52a2a;
+  }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      padding: 20px;
+    }
+
+    .card {
+      width: 220px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin: 15px 0;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #8b0000;
+    }
+
+    .card p {
+      margin: 6px 0 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 0.8rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>🌐 Choose Your Language</header>
+
+  <div class="container">
+    <div class="card" onclick="goToIndex('hindi')">
+      <h2>हिन्दी</h2>
+      <p>Read in Hindi</p>
+    </div>
+
+    <div class="card" onclick="goToIndex('marathi')">
+      <h2>मराठी</h2>
+      <p>Read in Marathi</p>
+    </div>
+
+    <div class="card" onclick="goToIndex('english')">
+      <h2>English</h2>
+      <p>Read in English</p>
+    </div>
+
+
+  <!-- Back button -->
+  <a href="index.html" class="back-btn">⬅ Back to Stories</a>
+  </div>
+
+  <footer>© Mythology Stories</footer>
+
+  <script>
+    function goToIndex(language) {
+      // Navigate to index page with language parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const storyId = urlParams.get("story"); // carry forward selected story
+      window.location.href = "index_story.html?story=" + storyId + "&lang=" + language;
+    }
+  </script>
+</body>
+</html>

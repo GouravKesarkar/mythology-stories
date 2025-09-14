@@ -4,21 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Story</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #fff8f0, #ffe6cc);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #8b0000;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #8b0000;
+      margin-bottom: 15px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 15px;
+      background: #8b0000;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #b22222;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 0.8rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
-  <h1 id="story-title"></h1>
+  <header id="storyTitle">📖 Story</header>
 
-  <label for="language">Choose Language:</label>
-  <select id="language">
-    <option value="en">English</option>
-    <option value="hi">हिन्दी</option>
-    <option value="mr">मराठी</option>
-  </select>
+  <main id="storyContent">
+    <p>Loading story...</p>
+  </main>
 
-  <div id="section-list"></div>
-  <div id="story-content"></div>
+  <footer>© Mythology Stories</footer>
 
-  <script src="app.js"></script>
+  <script>
+    // Get story + language + section
+    const urlParams = new URLSearchParams(window.location.search);
+    const storyId = urlParams.get("story");
+    const language = urlParams.get("lang");
+    const section = urlParams.get("section");
+
+    const storyContent = document.getElementById("storyContent");
+    const storyTitle = document.getElementById("storyTitle");
+
+    // Load JSON dynamically
+    fetch("stories.json")
+      .then(response => response.json())
+      .then(data => {
+        if (data[storyId] && data[storyId][language] && data[storyId][language][section]) {
+          const text = data[storyId][language][section];
+          storyTitle.textContent = "📖 " + storyId.toUpperCase() + " - Section " + section;
+          storyContent.innerHTML = `
+            <h2>${text}</h2>
+            <a href="index_story.html?story=${storyId}&lang=${language}" class="back-btn">⬅ Back to Index</a>
+          `;
+        } else {
+          storyContent.innerHTML = "<p>❌ Sorry, this story is not available yet.</p>";
+        }
+      })
+      .catch(err => {
+        storyContent.innerHTML = "<p>⚠️ Error loading story. Please try again later.</p>";
+        console.error(err);
+      });
+  </script>
 </body>
 </html>

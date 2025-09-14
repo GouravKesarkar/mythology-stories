@@ -1,0 +1,31 @@
+{
+  "ramayana": {
+    "hindi": {
+      "1": "रामायण का पहला भाग - बालकांड: इस खंड में राम के जन्म, शिक्षा और सीता स्वयंवर का वर्णन है।",
+      "2": "अयोध्याकांड: इसमें राम का वनवास और भरत का त्याग दिखाया गया है।",
+      "3": "अरण्यकांड: यहाँ रावण द्वारा सीता हरण का वर्णन मिलता है।"
+    },
+    "marathi": {
+      "1": "रामायणाचा पहिला भाग - बालकांड: रामाचा जन्म, शिक्षण आणि सीता स्वयंवर याचे वर्णन आहे.",
+      "2": "अयोध्याकांड: येथे रामाचे वनवास आणि भरताचा त्याग दाखविला आहे.",
+      "3": "अरण्यकांड: येथे रावणाने सीतेचे अपहरण केल्याचे वर्णन आहे."
+    },
+    "english": {
+      "1": "Ramayana - Balakanda: Describes the birth of Rama, his education, and Sita’s swayamvara.",
+      "2": "Ayodhya Kanda: Focuses on Rama’s exile and Bharata’s sacrifice.",
+      "3": "Aranya Kanda: Narrates Ravana’s abduction of Sita."
+    }
+  },
+  "mahabharata": {
+    "hindi": {
+      "1": "आदिपर्व: इसमें महाभारत की उत्पत्ति और पांडवों का जन्म बताया गया है।",
+      "2": "सभापर्व: युधिष्ठिर का राजसूय यज्ञ और पासे का खेल।",
+      "3": "वनपर्व: पांडवों का वनवास।"
+    },
+    "english": {
+      "1": "Adi Parva: Tells about the origins of Mahabharata and the birth of the Pandavas.",
+      "2": "Sabha Parva: Describes Yudhishthira’s Rajasuya Yajna and the game of dice.",
+      "3": "Vana Parva: Narrates the exile of the Pandavas."
+    }
+  }
+}

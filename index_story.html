@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Index</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #fff8f0, #ffe6cc);
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: #8b0000;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .section-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #8b0000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 6px 12px;
+      background: #8b0000;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+      font-size: 0.9rem;
+    }
+  
+    .back-btn:hover {
+      background: #b22222;
+    }
+  
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="language.html?story=${storyId}" class="back-btn">⬅ Back to Language</a>
+    <span>📖 Story Index</span>
+  </header>
+  
+  <style>
+    
+  </style>
+  
+
+  <section class="section-list" id="sectionList">
+    <!-- Sections will be inserted here -->
+  </section>
+
+  <footer>© Mythology Stories</footer>
+
+  <script>
+    // Get story + language from query params
+    const urlParams = new URLSearchParams(window.location.search);
+    const storyId = urlParams.get("story");
+    const language = urlParams.get("lang");
+
+    // Example: sections for Ramayana (you can expand later)
+    const sections = {
+      ramayana: ["Section 1: बालकांड", "Section 2: अयोध्याकांड", "Section 3: अरण्यकांड"],
+      mahabharata: ["Section 1: आदिपर्व", "Section 2: सभापर्व", "Section 3: वनपर्व"],
+      puranas: ["Section 1: विष्णु पुराण", "Section 2: शिव पुराण", "Section 3: देवी भागवत"]
+    };
+
+    const sectionList = document.getElementById("sectionList");
+
+    if (sections[storyId]) {
+      sections[storyId].forEach((sec, index) => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `<h3>${sec}</h3>`;
+        div.onclick = () => {
+          window.location.href = "story.html?story=" + storyId + "&lang=" + language + "&section=" + (index+1);
+        };
+        sectionList.appendChild(div);
+      });
+    } else {
+      sectionList.innerHTML = "<p style='text-align:center;'>No sections found for this story.</p>";
+    }
+  </script>
+</body>
+</html>
