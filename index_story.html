@@ -98,7 +98,7 @@
 <body>
 
   <header>
-    <a href="language.html?story=${storyId}" class="back-btn">⬅ Back</a>
+    <a href="#" id="backToLanguage" class="back-btn">⬅ Back</a>
     <span>📖 Story Index</span>
   </header>
 
@@ -140,6 +140,10 @@
     } else {
       sectionList.innerHTML = "<p style='text-align:center;'>No sections found for this story.</p>";
     }
+
+    const backToLanguage = document.getElementById("backToLanguage");
+    backToLanguage.href = `language.html?story=${storyId}`; 
+
   </script>
 </body>
 </html>

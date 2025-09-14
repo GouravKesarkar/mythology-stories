@@ -11,7 +11,7 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* full viewport height */
+      min-height: 100vh;
       background: linear-gradient(135deg, #fff8f0, #ffe6cc);
       color: #333;
       line-height: 1.6;
@@ -30,7 +30,7 @@
 
     /* --- Main content --- */
     main {
-      flex: 1; /* grow to fill remaining space */
+      flex: 1;
       padding: 20px;
       max-width: 800px;
       margin: auto;
@@ -41,22 +41,32 @@
       margin-bottom: 15px;
     }
 
-    .back-btn {
-      display: inline-block;
+    .btn-container {
+      text-align: center;
       margin-top: 20px;
+    }
+
+    .back-btn, .nav-btn {
+      display: inline-block;
+      margin: 5px;
       padding: 10px 15px;
       background: #8b0000;
       color: white;
       border-radius: 8px;
       text-decoration: none;
+      cursor: pointer;
       transition: background 0.2s ease;
     }
 
-    .back-btn:hover {
+    .back-btn:hover, .nav-btn:hover {
       background: #b22222;
     }
 
-    /* --- Footer --- */
+    .nav-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
     footer {
       text-align: center;
       padding: 12px 0;
@@ -76,8 +86,16 @@
 <body>
   <header id="storyTitle">📖 Story</header>
 
-  <main id="storyContent">
-    <p>Loading story...</p>
+  <main>
+    <div id="storyContent"><p>Loading story...</p></div>
+
+    <div class="btn-container">
+      <button id="prevBtn" class="nav-btn">⬅ Previous</button>
+      <span id="pageNum">Page 1</span>
+      <button id="nextBtn" class="nav-btn">Next ➡</button>
+    </div>
+
+    <a href="#" id="backToIndex" class="back-btn">⬅ Back to Index</a>
   </main>
 
   <footer>
@@ -85,7 +103,7 @@
   </footer>
 
   <script>
-    // Get story + language + section from query params
+    // Get query params
     const urlParams = new URLSearchParams(window.location.search);
     const storyId = urlParams.get("story");
     const language = urlParams.get("lang");
@@ -93,18 +111,24 @@
 
     const storyContent = document.getElementById("storyContent");
     const storyTitle = document.getElementById("storyTitle");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const pageNum = document.getElementById("pageNum");
+    const backToIndex = document.getElementById("backToIndex");
 
-    // Load story JSON
+    let pages = [];
+    let currentPage = 0;
+
+    backToIndex.href = `index_story.html?story=${storyId}&lang=${language}`;
+
+    // Load stories.json
     fetch("stories.json")
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => {
         if (data[storyId] && data[storyId][language] && data[storyId][language][section]) {
-          const text = data[storyId][language][section];
-          storyTitle.textContent = "📖 " + storyId.toUpperCase() + " - Section " + section;
-          storyContent.innerHTML = `
-            <h2>${text}</h2>
-            <a href="index_story.html?story=${storyId}&lang=${language}" class="back-btn">⬅ Back to Index</a>
-          `;
+          pages = data[storyId][language][section]; // array of pages
+          storyTitle.textContent = `📖 ${storyId.toUpperCase()} - Section ${section}`;
+          showPage(currentPage);
         } else {
           storyContent.innerHTML = "<p>❌ Sorry, this story is not available yet.</p>";
         }
@@ -113,6 +137,27 @@
         storyContent.innerHTML = "<p>⚠️ Error loading story. Please try again later.</p>";
         console.error(err);
       });
+
+    function showPage(index) {
+      storyContent.innerHTML = `<h2>${pages[index]}</h2>`;
+      pageNum.textContent = `Page ${index + 1} of ${pages.length}`;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === pages.length - 1;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        showPage(currentPage);
+      }
+    });
   </script>
 </body>
 </html>

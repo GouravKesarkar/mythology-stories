@@ -1,31 +1,139 @@
 {
   "ramayana": {
     "hindi": {
-      "1": "रामायण का पहला भाग - बालकांड: इस खंड में राम के जन्म, शिक्षा और सीता स्वयंवर का वर्णन है।",
-      "2": "अयोध्याकांड: इसमें राम का वनवास और भरत का त्याग दिखाया गया है।",
-      "3": "अरण्यकांड: यहाँ रावण द्वारा सीता हरण का वर्णन मिलता है।"
+      "1": [
+        "रामायण का पहला भाग - बालकांड: इस खंड में राम के जन्म का वर्णन है।",
+        "बालकांड में राम के शिक्षा और युवावस्था का वर्णन है।",
+        "सीता स्वयंवर और विवाह का विवरण इस पृष्ठ में है।"
+      ],
+      "2": [
+        "अयोध्याकांड: राम का वनवास प्रारंभ होता है।",
+        "भरत का त्याग और राम के प्रति प्रेम का विवरण।"
+      ],
+      "3": [
+        "अरण्यकांड: रावण द्वारा सीता हरण का वर्णन।",
+        "राम और लक्ष्मण का वन में जीवन।"
+      ]
     },
     "marathi": {
-      "1": "रामायणाचा पहिला भाग - बालकांड: रामाचा जन्म, शिक्षण आणि सीता स्वयंवर याचे वर्णन आहे.",
-      "2": "अयोध्याकांड: येथे रामाचे वनवास आणि भरताचा त्याग दाखविला आहे.",
-      "3": "अरण्यकांड: येथे रावणाने सीतेचे अपहरण केल्याचे वर्णन आहे."
+      "1": [
+        "रामायणाचा पहिला भाग - बालकांड: रामाचा जन्म वर्णन.",
+        "रामाचे शिक्षण आणि युवावस्था.",
+        "सीता स्वयंवर आणि विवाहाचा तपशील."
+      ],
+      "2": [
+        "अयोध्याकांड: रामाचे वनवास प्रारंभ.",
+        "भरताचा त्याग आणि रामावरील प्रेम."
+      ],
+      "3": [
+        "अरण्यकांड: रावणाने सीतेचे अपहरण.",
+        "राम आणि लक्ष्मण यांचे वनातील जीवन."
+      ]
     },
     "english": {
-      "1": "Ramayana - Balakanda: Describes the birth of Rama, his education, and Sita’s swayamvara.",
-      "2": "Ayodhya Kanda: Focuses on Rama’s exile and Bharata’s sacrifice.",
-      "3": "Aranya Kanda: Narrates Ravana’s abduction of Sita."
+      "1": [
+        "Ramayana - Balakanda: Describes the birth of Rama.",
+        "Education and youth of Rama are described.",
+        "Sita's swayamvara and marriage details."
+      ],
+      "2": [
+        "Ayodhya Kanda: Focuses on Rama’s exile.",
+        "Bharata’s sacrifice and devotion to Rama."
+      ],
+      "3": [
+        "Aranya Kanda: Narrates Ravana’s abduction of Sita.",
+        "Rama and Lakshmana’s life in the forest."
+      ]
     }
   },
+
   "mahabharata": {
     "hindi": {
-      "1": "आदिपर्व: इसमें महाभारत की उत्पत्ति और पांडवों का जन्म बताया गया है।",
-      "2": "सभापर्व: युधिष्ठिर का राजसूय यज्ञ और पासे का खेल।",
-      "3": "वनपर्व: पांडवों का वनवास।"
+      "1": [
+        "आदिपर्व: इसमें पांडवों और कौरवों का परिचय है।",
+        "राजकुमारों के बचपन और शिक्षा का वर्णन।"
+      ],
+      "2": [
+        "सभापर्व: कौरव और पांडवों के बीच खेल और सभा।",
+        "धर्म और राजनीति के संघर्ष का विवरण।"
+      ],
+      "3": [
+        "वनपर्व: पांडवों का वनवास।",
+        "विविध युद्ध और शिक्षा का वर्णन।"
+      ]
+    },
+    "marathi": {
+      "1": [
+        "आदिपर्व: पांडव आणि कौरवांचा परिचय.",
+        "राजकुमारांचे बालपण आणि शिक्षण."
+      ],
+      "2": [
+        "सभापर्व: सभा आणि राजकारण.",
+        "धर्म आणि संघर्षाची माहिती."
+      ],
+      "3": [
+        "वनपर्व: पांडवांचे वनवास.",
+        "युद्ध आणि शिकवणी."
+      ]
     },
     "english": {
-      "1": "Adi Parva: Tells about the origins of Mahabharata and the birth of the Pandavas.",
-      "2": "Sabha Parva: Describes Yudhishthira’s Rajasuya Yajna and the game of dice.",
-      "3": "Vana Parva: Narrates the exile of the Pandavas."
+      "1": [
+        "Adiparva: Introduction to Pandavas and Kauravas.",
+        "Childhood and education of princes."
+      ],
+      "2": [
+        "Sabha Parva: Games and court events.",
+        "Conflicts of dharma and politics."
+      ],
+      "3": [
+        "Vanaparva: Pandavas’ exile.",
+        "Various battles and lessons."
+      ]
+    }
+  },
+
+  "puranas": {
+    "hindi": {
+      "1": [
+        "विष्णु पुराण: भगवान विष्णु के लीलाओं का वर्णन।",
+        "सृष्टि, प्रलय और अवतार विवरण।"
+      ],
+      "2": [
+        "शिव पुराण: भगवान शिव के चरित्र और तपस्या।",
+        "शिव के विभिन्न रूप और कथाएँ।"
+      ],
+      "3": [
+        "देवी भागवत: देवी शक्ति और भक्ति की कहानियाँ।",
+        "अनेक देवी कथाओं का विवरण।"
+      ]
+    },
+    "marathi": {
+      "1": [
+        "विष्णुपुराण: विष्णूच्या लीला.",
+        "सृष्टी, प्रलय आणि अवतार."
+      ],
+      "2": [
+        "शिवपुराण: शिवांचे चरित्र आणि तपस्या.",
+        "शिवाचे विविध रूप आणि कथा."
+      ],
+      "3": [
+        "देवी भागवत: देवी शक्ती आणि भक्ती कथा.",
+        "अनेक देवी कथांचा तपशील."
+      ]
+    },
+    "english": {
+      "1": [
+        "Vishnu Purana: Stories of Lord Vishnu’s incarnations.",
+        "Creation, destruction, and avatars."
+      ],
+      "2": [
+        "Shiva Purana: Life and penance of Lord Shiva.",
+        "Different forms and legends of Shiva."
+      ],
+      "3": [
+        "Devi Bhagavat: Stories of Goddess Shakti and devotion.",
+        "Various legends of goddesses."
+      ]
     }
   }
 }
