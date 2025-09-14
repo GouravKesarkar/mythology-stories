@@ -50,10 +50,19 @@
     }
 
     footer {
-      text-align: center;
-      padding: 10px;
-      font-size: 0.8rem;
-      color: #777;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 0.85rem;
+        color: #555;
+        background: #fff4e6; /* soft matching background with header gradient */
+        border-top: 1px solid #e0c8b0;
+        box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+        position: relative; /* keeps footer at bottom of content */
+    }
+
+    footer p {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
     }
   </style>
 </head>
@@ -64,7 +73,9 @@
     <p>Loading story...</p>
   </main>
 
-  <footer>© Mythology Stories</footer>
+  <footer>
+    <p>© 2025 Mythology Stories | Developed by Gourav Kesarkar</p>
+  </footer>
 
   <script>
     // Get story + language + section
