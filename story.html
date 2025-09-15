@@ -47,7 +47,7 @@
       margin-top: 20px;
     }
 
-    .back-btn, .nav-btn {
+    .back-btn, .nav-btn, .jump-btn {
       display: inline-block;
       margin: 5px;
       padding: 10px 15px;
@@ -59,13 +59,27 @@
       transition: background 0.2s ease;
     }
 
-    .back-btn:hover, .nav-btn:hover {
+    .back-btn:hover, .nav-btn:hover, .jump-btn:hover {
       background: #b22222;
     }
 
     .nav-btn:disabled {
       background: #ccc;
       cursor: not-allowed;
+    }
+
+    .jump-container {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .jump-container input {
+      width: 60px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 8px;
+      text-align: center;
     }
 
     footer {
@@ -96,6 +110,12 @@
       <button id="nextBtn" class="nav-btn">Next ➡</button>
     </div>
 
+    <!-- Jump to Page -->
+    <div class="jump-container">
+      <input type="number" id="jumpInput" placeholder="Page #" min="1">
+      <button id="jumpBtn" class="jump-btn">Go</button>
+    </div>
+
     <a href="#" id="backToIndex" class="back-btn">⬅ Back to Index</a>
   </main>
 
@@ -116,6 +136,8 @@
     const nextBtn = document.getElementById("nextBtn");
     const pageNum = document.getElementById("pageNum");
     const backToIndex = document.getElementById("backToIndex");
+    const jumpInput = document.getElementById("jumpInput");
+    const jumpBtn = document.getElementById("jumpBtn");
 
     let pages = [];
     let currentPage = 0;
@@ -144,6 +166,8 @@
       pageNum.textContent = `Page ${index + 1} of ${pages.length}`;
       prevBtn.disabled = index === 0;
       nextBtn.disabled = index === pages.length - 1;
+      // Always scroll back to top on new page
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     prevBtn.addEventListener("click", () => {
@@ -157,6 +181,17 @@
       if (currentPage < pages.length - 1) {
         currentPage++;
         showPage(currentPage);
+      }
+    });
+
+    // Jump to specific page
+    jumpBtn.addEventListener("click", () => {
+      const page = parseInt(jumpInput.value, 10);
+      if (!isNaN(page) && page >= 1 && page <= pages.length) {
+        currentPage = page - 1;
+        showPage(currentPage);
+      } else {
+        alert(`❌ Please enter a number between 1 and ${pages.length}`);
       }
     });
   </script>
