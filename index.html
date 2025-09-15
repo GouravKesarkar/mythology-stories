@@ -82,6 +82,21 @@
       margin: 0;
       font-family: 'Segoe UI', Tahoma, sans-serif;
     }
+
+    .share-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 14px;
+      background: #25D366; /* WhatsApp green */
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+    .share-btn:hover {
+      background: #1da851;
+    }
   </style>
 </head>
 <body>
@@ -104,10 +119,14 @@
         <p>Puranas Stories (Coming Soon)</p>
       </div>
     </section>
+    <br><br><br>
+    <button id="closeAppBtn" class="btn">❌ Close App</button>
   </main>
 
   <footer>
     <p>© 2025 Mythology Stories | Developed by Gourav Kesarkar</p>
+    <a href="https://mythology-stories.netlify.app/?text=📚Check%20out%20this%20Mythology%20Stories%20App!%20:%20https://mythology-stories.netlify.app/" 
+       class="share-btn" target="_blank">📤 Share via WhatsApp</a>
   </footer>
 
   <script>
@@ -135,6 +154,18 @@
     function goToLanguagePage(storyId) {
       window.location.href = "language.html?story=" + storyId;
     }
+
+    document.getElementById("closeAppBtn").addEventListener("click", () => {
+      // Try to close the app window
+      window.close();
+
+      // Fallback: if it doesn’t close, alert user
+      setTimeout(() => {
+        if (!window.closed) {
+          alert("Close App works only in installed PWA mode.");
+        }
+      }, 200);
+    });
     </script>
     
 </body>
