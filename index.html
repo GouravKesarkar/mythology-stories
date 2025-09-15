@@ -119,8 +119,6 @@
         <p>Puranas Stories (Coming Soon)</p>
       </div>
     </section>
-    <br><br><br>
-    <button id="closeAppBtn" class="btn">❌ Close App</button>
   </main>
 
   <footer>
@@ -154,18 +152,6 @@
     function goToLanguagePage(storyId) {
       window.location.href = "language.html?story=" + storyId;
     }
-
-    document.getElementById("closeAppBtn").addEventListener("click", () => {
-      // Try to close the app window
-      window.close();
-
-      // Fallback: if it doesn’t close, alert user
-      setTimeout(() => {
-        if (!window.closed) {
-          alert("Close App works only in installed PWA mode.");
-        }
-      }, 200);
-    });
     </script>
     
 </body>
