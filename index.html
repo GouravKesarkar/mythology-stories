@@ -15,6 +15,13 @@
       min-height: 100vh; /* full viewport height */
       background: linear-gradient(135deg, #fff4e6, #ffe0cc);
       color: #333;
+      /* Prevent text selection */
+        user-select: none;
+
+      /* Vendor prefixes for older browsers */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
 
     /* --- Header --- */

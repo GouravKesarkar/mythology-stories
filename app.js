@@ -30,3 +30,7 @@ if (storyName && langSelect) {
   langSelect.addEventListener("change", () => loadStory(langSelect.value));
   loadStory("en"); // default English
 }
+
+// JS to disable right-click
+document.addEventListener('contextmenu', event => event.preventDefault());
+
