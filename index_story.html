@@ -124,29 +124,27 @@
     const storyId = urlParams.get("story");
     const language = urlParams.get("lang");
 
-    // Example: sections for Ramayana (you can expand later)
-    const sections = {
-      ramayana: ["Part 1: बालकांड (Bālakāṇḍa)", "Part 2: अयोध्याकांड (Ayodhyākāṇḍa)", "Part 3: अरण्यकांड (Araṇyakāṇḍa)"],
-      mahabharata: ["Part 1: आदिपर्व", "Part 2: सभापर्व", "Part 3: वनपर्व"],
-      puranas: ["1: विष्णु पुराण", "2: शिव पुराण", "3: देवी भागवत"]
-    };
+    
+    // Fetch section names
+    fetch(`stories/${storyId}/${language}/index.json`)
+      .then(res => res.json())
+      .then(data => {
+        Object.keys(data).forEach(key => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `<h3>${data[key]}</h3>`;
+          div.onclick = () => {
+            window.location.href = `story.html?story=${storyId}&lang=${language}&section=${key}`;
+          };
+          sectionList.appendChild(div);
+        });
+      })
+      .catch(err => {
+        sectionList.innerHTML = "<p style='text-align:center;'>No sections found for this story.</p>";
+        console.error(err);
+      });
 
     const sectionList = document.getElementById("sectionList");
-
-    if (sections[storyId]) {
-      sections[storyId].forEach((sec, index) => {
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `<h3>${sec}</h3>`;
-        div.onclick = () => {
-          window.location.href = "story.html?story=" + storyId + "&lang=" + language + "&section=" + (index+1);
-        };
-        sectionList.appendChild(div);
-      });
-    } else {
-      sectionList.innerHTML = "<p style='text-align:center;'>No sections found for this story.</p>";
-    }
-
     const backToLanguage = document.getElementById("backToLanguage");
     backToLanguage.href = `language.html?story=${storyId}`; 
 

@@ -151,12 +151,12 @@
 
     backToIndex.href = `index_story.html?story=${storyId}&lang=${language}`;
 
-    // Load stories.json
-    fetch("stories.json")
+    // Fetch Stories
+    fetch(`stories/${storyId}/${language}/part${section}.json`)
       .then(res => res.json())
       .then(data => {
-        if (data[storyId] && data[storyId][language] && data[storyId][language][section]) {
-          pages = data[storyId][language][section]; // array of pages
+        if (data.length > 0) {
+          pages = data;
           storyTitle.textContent = `📖 ${storyId.toUpperCase()} - Section ${section}`;
           showPage(currentPage);
         } else {
