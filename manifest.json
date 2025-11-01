@@ -1,11 +1,11 @@
 {
-  "name": "Mythology Stories",
-  "short_name": "Stories",
+  "name": "Epic Stories",
+  "short_name": "Tales Retold",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#fff4e6",
   "theme_color": "#8b0000",
-  "description": "Read Indian mythology stories in Hindi, Marathi, and English",
+  "description": "Read Indian Epics in Hindi, Marathi, and English",
   "icons": [
     {
       "src": "icon.png",
