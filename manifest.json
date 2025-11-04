@@ -1,7 +1,7 @@
 {
   "name": "Epic Stories",
   "short_name": "Tales Retold",
-  "start_url": "index.html",
+  "start_url": "./"
   "display": "standalone",
   "background_color": "#fff4e6",
   "theme_color": "#8b0000",
