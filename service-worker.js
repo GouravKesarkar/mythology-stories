@@ -1,4 +1,4 @@
-const CACHE_NAME = "epcis-cache-v3"; // versioned cache
+const CACHE_NAME = "epics-cache-v3"; // versioned cache
 const ASSETS = [
   "index.html",
   "story.html",
@@ -8,7 +8,7 @@ const ASSETS = [
   "app.js",
   "manifest.json",
   "stories.json",
-  "icon_102.png"
+  "icon_192.png"
 ];
 
 
