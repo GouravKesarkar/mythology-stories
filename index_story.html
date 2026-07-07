@@ -3,151 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Story Index</title>
-  <link rel="manifest" href="manifest.json"> 
-  <style>
-    /* --- Body layout --- */
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh; /* full viewport height */
-      background: linear-gradient(135deg, #fff8f0, #ffe6cc);
-      color: #333;
-    }
-
-    /* --- Header --- */
-    header {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      background: #8b0000;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    /* --- Main content --- */
-    main {
-      flex: 1;
-      padding: 20px;
-    }
-
-    .section-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-
-    .card h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #8b0000;
-    }
-
-    /* --- Back button --- */
-    .back-btn {
-      display: inline-block;
-      margin-right: 10px;
-      padding: 6px 12px;
-      background: #8b0000;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.2s ease;
-      font-size: 0.9rem;
-    }
-
-    .back-btn:hover {
-      background: #b22222;
-    }
-
-    /* --- Footer --- */
-    footer {
-      text-align: center;
-      padding: 12px 0;
-      font-size: 0.85rem;
-      color: #555;
-      background: #fff4e6;
-      border-top: 1px solid #e0c8b0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-    }
-
-    footer p {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-  </style>
+  <title>Chapters — Itihasa</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon_192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-  <header>
-    📖 Epic Index
-  </header>
+  <div id="header-slot"></div>
+  <div id="breadcrumb-slot"></div>
 
   <main>
-    <section class="section-list" id="sectionList">
-      <!-- Sections will be inserted here -->
+    <section class="page-hero">
+      <span class="page-hero__eyebrow" id="epicEyebrow">Chapters</span>
+      <h1 id="epicTitle">Choose a chapter</h1>
+      <p id="epicSub">Every chapter is listed in its original order — start wherever you like.</p>
     </section>
 
-    <!-- Back to Language button at bottom center -->
-    <div class="back-container">
-      <br><br>
-      <a href="#" id="backToLanguage" class="back-btn">⬅ Back to Language</a>
+    <section class="grid" id="sectionList" aria-label="Chapters"></section>
+
+    <div class="back-row">
+      <a href="#" id="backToLanguage" class="btn btn--ghost">← Change language</a>
     </div>
   </main>
 
-  <footer>
-    <p>© 2025 Indian Epics | Developed by MK & GK </p>
-  </footer>
+  <div id="footer-slot"></div>
 
+  <script src="assets/js/site.js"></script>
   <script>
-    // Get story + language from query params
-    const urlParams = new URLSearchParams(window.location.search);
-    const storyId = urlParams.get("story");
-    const language = urlParams.get("lang");
+    const params = new URLSearchParams(window.location.search);
+    const storyId = params.get("story");
+    const language = params.get("lang");
+    const epic = EPICS[storyId];
+    const lang = LANGUAGES[language];
 
-    
-    // Fetch section names
-    fetch(`stories/${storyId}/${language}/index.json`)
-      .then(res => res.json())
-      .then(data => {
-        Object.keys(data).forEach(key => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `<h3>${data[key]}</h3>`;
-          div.onclick = () => {
-            window.location.href = `story.html?story=${storyId}&lang=${language}&section=${key}`;
-          };
-          sectionList.appendChild(div);
-        });
-      })
-      .catch(err => {
-        sectionList.innerHTML = "<p style='text-align:center;'>No sections found for this story.</p>";
-        console.error(err);
-      });
+    document.getElementById("header-slot").innerHTML = renderHeader({
+      backHref: `language.html?story=${storyId}`,
+      backLabel: "Language",
+    });
+
+    document.getElementById("breadcrumb-slot").innerHTML = renderBreadcrumb([
+      { label: "Home", href: "index.html" },
+      { label: epic ? epic.en : "Story", href: `language.html?story=${storyId}` },
+      { label: lang ? lang.label : "Chapters" },
+    ]);
+
+    if (epic) {
+      document.getElementById("epicEyebrow").textContent = `${epic.dev} · ${lang ? lang.label : ""}`;
+      document.getElementById("epicTitle").textContent = `${epic.en} — chapter index`;
+    }
+
+    document.getElementById("footer-slot").innerHTML = renderFooter();
+    document.getElementById("backToLanguage").href = `language.html?story=${storyId}`;
 
     const sectionList = document.getElementById("sectionList");
-    const backToLanguage = document.getElementById("backToLanguage");
-    backToLanguage.href = `language.html?story=${storyId}`; 
 
+    // A chapter title may embed its own status, e.g. "Part 1: बालकांड (...): Available"
+    function parseChapter(raw) {
+      const availableMatch = raw.match(/:\s*Available\s*$/i);
+      const soonMatch = raw.match(/:\s*Coming Soon\s*$/i);
+      let label = raw.replace(/:\s*(Available|Coming Soon)\s*$/i, "").trim();
+      const numberMatch = label.match(/^([A-Za-z]+)\s+(\d+)\s*:\s*/);
+      let eyebrow = "";
+      if (numberMatch) {
+        eyebrow = `${numberMatch[1]} ${numberMatch[2]}`;
+        label = label.slice(numberMatch[0].length).trim();
+      }
+      let status = null;
+      if (availableMatch) status = "available";
+      if (soonMatch) status = "soon";
+      return { eyebrow, label, status };
+    }
+
+    fetch(`stories/${storyId}/${language}/index.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error("not found");
+        return res.json();
+      })
+      .then((data) => {
+        const keys = Array.isArray(data) ? data.map((_, i) => i) : Object.keys(data);
+        if (keys.length === 0) throw new Error("empty");
+
+        keys.forEach((key) => {
+          const raw = Array.isArray(data) ? data[key] : data[key];
+          const { eyebrow, label, status } = parseChapter(String(raw));
+          const card = document.createElement("a");
+          card.className = "card";
+          card.href = `story.html?story=${storyId}&lang=${language}&section=${key}`;
+          card.innerHTML = `
+            <div class="card__top">
+              ${eyebrow ? `<span class="card__eyebrow">${eyebrow}</span>` : "<span></span>"}
+              ${
+                status
+                  ? `<span class="badge ${status === "available" ? "badge--available" : "badge--soon"}">
+                       ${status === "available" ? "Available" : "Coming soon"}
+                     </span>`
+                  : ""
+              }
+            </div>
+            <h2 class="card__title">${label}</h2>
+          `;
+          sectionList.appendChild(card);
+        });
+      })
+      .catch(() => {
+        sectionList.outerHTML = `
+          <div class="state-panel" role="status">
+            <div class="state-panel__icon">📜</div>
+            <p><strong>No chapters found yet.</strong><br>This text is still being prepared — please check back soon.</p>
+          </div>`;
+      });
   </script>
+
 </body>
 </html>

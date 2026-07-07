@@ -1,16 +1,21 @@
 {
-  "name": "Epic Stories",
-  "short_name": "Stories",
-  "start_url": "./",
+  "name": "Itihasa — Indian Epics Retold",
+  "short_name": "Itihasa",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff4e6",
-  "theme_color": "#8b0000",
-  "description": "Read Indian Epics in Hindi, Marathi, and English",
+  "background_color": "#faf3e7",
+  "theme_color": "#7a1f2b",
+  "description": "Read the Ramayana, Mahabharata, Bhagavad Gita and the Puranas retold in Hindi, Marathi and English.",
   "icons": [
-      {
-          "src": "icon_192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-      }
+    {
+      "src": "icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "461x461",
+      "type": "image/png"
+    }
   ]
 }

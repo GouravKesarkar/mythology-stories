@@ -3,136 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose Language</title>
-  <link rel="manifest" href="manifest.json"> 
-  <style>
-    /* --- Body layout --- */
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh; /* full viewport height */
-      background: linear-gradient(135deg, #fdf6e3, #ffe6cc);
-      color: #333;
-    }
-
-    /* --- Header --- */
-    header {
-      text-align: center;
-      padding: 20px;
-      background: #8b0000;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    }
-
-    /* --- Main content --- */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .card {
-      width: 220px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin: 15px 0;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-
-    .card h2 {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #8b0000;
-    }
-
-    .card p {
-      margin: 6px 0 0;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 16px;
-      background: #8b0000;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.2s ease;
-      text-align: center;
-    }
-
-    .back-btn:hover {
-      background: #a52a2a;
-    }
-
-    /* --- Footer --- */
-    footer {
-      text-align: center;
-      padding: 12px 0;
-      font-size: 0.85rem;
-      color: #555;
-      background: #fff4e6;
-      border-top: 1px solid #e0c8b0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-    }
-
-    footer p {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-  </style>
+  <title>Choose a language — Itihasa</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon_192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <header>🌐 Choose Your Language</header>
+
+  <div id="header-slot"></div>
+  <div id="breadcrumb-slot"></div>
 
   <main>
-    <div class="card" onclick="goToIndex('hindi')">
-      <h2>हिन्दी</h2>
-      <p>Read in Hindi</p>
-    </div>
+    <section class="page-hero">
+      <span class="page-hero__eyebrow" id="epicEyebrow">Choose a language</span>
+      <h1 id="epicTitle">Read in your language</h1>
+      <p>Pick the language you'd like to read in — you can switch anytime from the story index.</p>
+    </section>
 
-    <div class="card" onclick="goToIndex('marathi')">
-      <h2>मराठी</h2>
-      <p>Read in Marathi</p>
-    </div>
+    <section class="grid grid--languages" id="langGrid" aria-label="Language options"></section>
 
-    <div class="card" onclick="goToIndex('english')">
-      <h2>English</h2>
-      <p>Read in English</p>
+    <div class="back-row">
+      <a href="index.html" class="btn btn--ghost" id="backBtn">← Back to all epics</a>
     </div>
-
-    <!-- Back button -->
-    <a href="index.html" class="back-btn">⬅ Back to Epics</a>
   </main>
 
-  <footer>
-    <p>© 2025 Indian Epics | Developed by MK & GK </p>
-  </footer>
+  <div id="footer-slot"></div>
 
+  <script src="assets/js/site.js"></script>
   <script>
-    function goToIndex(language) {
-      const urlParams = new URLSearchParams(window.location.search);
-      const storyId = urlParams.get("story"); // carry forward selected story
-      window.location.href = "index_story.html?story=" + storyId + "&lang=" + language;
+    const params = new URLSearchParams(window.location.search);
+    const storyId = params.get("story");
+    const epic = EPICS[storyId];
+
+    document.getElementById("header-slot").innerHTML = renderHeader({
+      backHref: "index.html",
+      backLabel: "All epics",
+    });
+
+    document.getElementById("breadcrumb-slot").innerHTML = renderBreadcrumb([
+      { label: "Home", href: "index.html" },
+      { label: epic ? epic.en : "Story" },
+    ]);
+
+    if (epic) {
+      document.getElementById("epicEyebrow").textContent = `${epic.dev} · ${epic.en}`;
+      document.getElementById("epicTitle").textContent = `Read ${epic.en} in your language`;
     }
+
+    document.getElementById("footer-slot").innerHTML = renderFooter();
+
+    const grid = document.getElementById("langGrid");
+    Object.entries(LANGUAGES).forEach(([code, lang]) => {
+      const card = document.createElement("a");
+      card.className = "card";
+      card.href = `index_story.html?story=${storyId}&lang=${code}`;
+      card.innerHTML = `
+        <h2 class="card__title">${lang.label}</h2>
+        <p class="card__subtitle">${lang.sub}</p>
+      `;
+      grid.appendChild(card);
+    });
   </script>
+
 </body>
 </html>

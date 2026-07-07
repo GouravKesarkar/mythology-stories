@@ -3,175 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Indian Epics</title>
-  <link rel="manifest" href="manifest.json"> 
-  <style>
-    /* --- Body and layout --- */
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh; /* full viewport height */
-      background: linear-gradient(135deg, #fff4e6, #ffe0cc);
-      color: #333;
-      /* Prevent text selection */
-        user-select: none;
-
-      /* Vendor prefixes for older browsers */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-    }
-
-    /* --- Header --- */
-    header {
-      text-align: center;
-      padding: 20px;
-      background: #8b0000;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    }
-
-    /* --- Main content --- */
-    main {
-      flex: 1; /* main content takes remaining space */
-      padding: 20px;
-    }
-
-    .story-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-
-    .card h2 {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #8b0000;
-    }
-
-    .card p {
-      margin: 8px 0 0;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    /* --- Footer --- */
-    footer {
-      text-align: center;
-      padding: 12px 0;
-      font-size: 0.85rem;
-      color: #555;
-      background: #fff4e6; /* soft matching background */
-      border-top: 1px solid #e0c8b0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-    }
-
-    footer p {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-
-    .share-btn {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 8px 14px;
-      background: #25D366; /* WhatsApp green */
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: background 0.2s ease;
-    }
-    .share-btn:hover {
-      background: #1da851;
-    }
-  </style>
+  <title>Itihasa — Indian Epics Retold</title>
+  <meta name="description" content="Read the Ramayana, Mahabharata, Bhagavad Gita and the Puranas retold in Hindi, Marathi and English.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon_192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <header class="text-center p-4">
-  <h1 class="text-xl font-bold">📖 Indian Epics Retold</h1>
-  <p class="text-sm text-gray-500">
-    Indian Epics, simplified for today’s readers..
-  </p>
-</header>
 
+  <div id="header-slot"></div>
 
   <main>
-    <section class="story-list">
-      <div class="card" onclick="goToLanguagePage('ramayana')">
-        <h2>रामायण</h2>
-        <p>Ramayana (Available)</p>
-      </div>
-      <div class="card" onclick="goToLanguagePage('bhagavadGita')">
-        <h2>भगवद्गीता</h2>
-        <p>Bhagavad Gita (Coming Soon)</p>
-      </div>
-      <div class="card" onclick="goToLanguagePage('mahabharata')">
-        <h2>महाभारत</h2>
-        <p>Mahabharata (Coming Soon)</p>
-      </div>
-      <div class="card" onclick="goToLanguagePage('shivaPurana')">
-        <h2>शिव पुराण</h2>
-        <p>Shiva Purana (Coming Soon)</p>
-      </div>
-      <div class="card" onclick="goToLanguagePage('vishnuPurana')">
-        <h2>विष्णु पुराण</h2>
-        <p>Vishnu Purana (Coming Soon)</p>
-      </div>
+    <section class="page-hero">
+      <span class="page-hero__eyebrow">Itihasa · इतिहास</span>
+      <h1>Indian epics, retold for today's readers</h1>
+      <p>Choose a text below to begin. Every story is retold in Hindi, Marathi and English — a lit lamp means it's ready to read, an unlit one is still being written.</p>
     </section>
+
+    <section class="grid" id="epicGrid" aria-label="Available epics"></section>
   </main>
 
-  <footer>
-    <p>© 2025 Indian Epics | Developed by MK & GK </p>
-    <a href="https://wa.me/?text=📚%20Check%20out%20this%20Indian%20Epics%20Retold%20App!%20Install%20on%20mobile%20here:%20https://indian-epics.pages.dev/"
-	class="share-btn" target="_blank" rel="noopener">📤 Share via WhatsApp</a>
-  </footer>
+  <div id="footer-slot"></div>
 
+  <script src="assets/js/site.js"></script>
   <script>
-    let deferredPrompt;
-    
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    
-      // Create a custom Install button
-      const btn = document.createElement('button');
-      btn.textContent = "Install App";
-      btn.style.cssText = "position:fixed;bottom:20px;right:20px;padding:10px 15px;background:#8b0000;color:white;border:none;border-radius:8px;cursor:pointer;";
-      document.body.appendChild(btn);
-    
-      btn.addEventListener('click', () => {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-          deferredPrompt = null;
-          btn.remove();
-        });
-      });
+    document.getElementById("header-slot").innerHTML = renderHeader();
+    document.getElementById("footer-slot").innerHTML = renderFooter();
+
+    const grid = document.getElementById("epicGrid");
+    Object.entries(EPICS).forEach(([id, epic]) => {
+      const lit = epic.status === "available";
+      const card = document.createElement("a");
+      card.className = "card";
+      card.href = `language.html?story=${id}`;
+      card.innerHTML = `
+        <div class="card__top">
+          ${diyaIcon(lit)}
+          <span class="badge ${lit ? "badge--available" : "badge--soon"}">
+            ${lit ? "Available" : "Coming soon"}
+          </span>
+        </div>
+        <h2 class="card__title">${epic.dev}</h2>
+        <p class="card__subtitle">${epic.en}</p>
+        <p class="card__eyebrow">${epic.tagline}</p>
+      `;
+      grid.appendChild(card);
     });
 
-    function goToLanguagePage(storyId) {
-      window.location.href = "language.html?story=" + storyId;
-    }
-    </script>
-    
+    initInstallPrompt();
+  </script>
+
 </body>
 </html>

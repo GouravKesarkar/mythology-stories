@@ -3,204 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Story</title>
-  <link rel="manifest" href="manifest.json"> 
-  <style>
-    /* --- Body layout --- */
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #fff8f0, #ffe6cc);
-      color: #333;
-      line-height: 1.6;
-      /* Prevent text selection */
-      user-select: none;
-
-      /* Vendor prefixes for older browsers */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-    }
-
-    /* --- Header --- */
-    header {
-      text-align: center;
-      padding: 20px;
-      background: #8b0000;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    }
-
-    /* --- Main content --- */
-    main {
-      flex: 1;
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h2 {
-      color: #8b0000;
-      margin-bottom: 15px;
-    }
-
-    .btn-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .back-btn, .nav-btn, .jump-btn {
-      display: inline-block;
-      margin: 5px;
-      padding: 10px 15px;
-      background: #8b0000;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .back-btn:hover, .nav-btn:hover, .jump-btn:hover {
-      background: #b22222;
-    }
-
-    .nav-btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .jump-container {
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .jump-container input {
-      width: 60px;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-right: 8px;
-      text-align: center;
-    }
-
-    footer {
-      text-align: center;
-      padding: 12px 0;
-      font-size: 0.85rem;
-      color: #555;
-      background: #fff4e6;
-      border-top: 1px solid #e0c8b0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-    }
-
-    footer p {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-  </style>
+  <title>Reading — Itihasa</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon_192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <header id="storyTitle">📖 Story</header>
+
+  <div id="header-slot"></div>
+  <div id="breadcrumb-slot"></div>
 
   <main>
-    <div id="storyContent"><p>Loading story...</p></div>
+    <div class="reader">
+      <div class="reader-meta">
+        <span id="readerTag">Loading…</span>
+        <span id="readerPage"></span>
+      </div>
+      <div id="storyContent" class="story-text">
+        <div class="skeleton" style="height:1.8em;width:70%;margin-bottom:14px;"></div>
+        <div class="skeleton" style="height:1em;width:100%;margin-bottom:8px;"></div>
+        <div class="skeleton" style="height:1em;width:96%;margin-bottom:8px;"></div>
+        <div class="skeleton" style="height:1em;width:88%;"></div>
+      </div>
 
-    <div class="btn-container">
-      <button id="prevBtn" class="nav-btn">⬅ Previous</button>
-      <span id="pageNum">Page 1</span>
-      <button id="nextBtn" class="nav-btn">Next ➡</button>
+      <div class="reader-nav">
+        <button id="prevBtn" class="btn btn--ghost">← Previous</button>
+        <span class="reader-nav__page" id="pageNum">Page 1</span>
+        <button id="nextBtn" class="btn btn--primary">Next →</button>
+      </div>
+
+      <form class="jump-form" id="jumpForm">
+        <label for="jumpInput" class="sr-only">Jump to page</label>
+        <input type="number" id="jumpInput" placeholder="Page #" min="1">
+        <button type="submit" class="btn btn--ghost">Go</button>
+      </form>
     </div>
 
-    <!-- Jump to Page -->
-    <div class="jump-container">
-      <input type="number" id="jumpInput" placeholder="Page #" min="1">
-      <button id="jumpBtn" class="jump-btn">Go</button>
+    <div class="back-row">
+      <a href="#" id="backToIndex" class="btn btn--ghost">← Back to chapter index</a>
     </div>
-
-    <a href="#" id="backToIndex" class="back-btn">⬅ Back to Index</a>
   </main>
 
-  <footer>
-    <p>© 2025 Indian Epics | Developed by MK & GK </p>
-  </footer>
+  <div id="footer-slot"></div>
 
+  <script src="assets/js/site.js"></script>
   <script>
-    // Get query params
-    const urlParams = new URLSearchParams(window.location.search);
-    const storyId = urlParams.get("story");
-    const language = urlParams.get("lang");
-    const section = urlParams.get("section");
+    const params = new URLSearchParams(window.location.search);
+    const storyId = params.get("story");
+    const language = params.get("lang");
+    const section = params.get("section");
+    const epic = EPICS[storyId];
+    const lang = LANGUAGES[language];
+
+    document.getElementById("header-slot").innerHTML = renderHeader({
+      backHref: `index_story.html?story=${storyId}&lang=${language}`,
+      backLabel: "Chapters",
+      withProgress: true,
+    });
+
+    document.getElementById("breadcrumb-slot").innerHTML = renderBreadcrumb([
+      { label: "Home", href: "index.html" },
+      { label: epic ? epic.en : "Story", href: `language.html?story=${storyId}` },
+      { label: lang ? lang.label : "Language", href: `index_story.html?story=${storyId}&lang=${language}` },
+      { label: "Reading" },
+    ]);
+
+    document.getElementById("footer-slot").innerHTML = renderFooter();
+    document.getElementById("backToIndex").href = `index_story.html?story=${storyId}&lang=${language}`;
+    document.getElementById("readerTag").textContent = epic ? `${epic.en} · ${lang ? lang.label : ""}` : "Itihasa";
 
     const storyContent = document.getElementById("storyContent");
-    const storyTitle = document.getElementById("storyTitle");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const pageNum = document.getElementById("pageNum");
-    const backToIndex = document.getElementById("backToIndex");
+    const readerPage = document.getElementById("readerPage");
+    const jumpForm = document.getElementById("jumpForm");
     const jumpInput = document.getElementById("jumpInput");
-    const jumpBtn = document.getElementById("jumpBtn");
 
     let pages = [];
     let currentPage = 0;
 
-    backToIndex.href = `index_story.html?story=${storyId}&lang=${language}`;
-
-    // Fetch Stories
     fetch(`stories/${storyId}/${language}/part${section}.json`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.length > 0) {
+      .then((res) => {
+        if (!res.ok) throw new Error("not found");
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
           pages = data;
-          storyTitle.textContent = `📖 ${storyId.toUpperCase()}`;
           showPage(currentPage);
         } else {
-          storyContent.innerHTML = "<p>❌ Sorry, this story is not available yet.</p>";
+          showUnavailable();
         }
       })
-      .catch(err => {
-        storyContent.innerHTML = "<p>⚠️ Error loading story. Please try again later.</p>";
-        console.error(err);
-      });
+      .catch(() => showUnavailable());
+
+    function showUnavailable() {
+      storyContent.innerHTML = `
+        <div class="state-panel">
+          <div class="state-panel__icon">📜</div>
+          <p><strong>This chapter isn't written yet.</strong><br>Please check back soon, or explore another chapter in the index.</p>
+        </div>`;
+      document.querySelector(".reader-nav").style.display = "none";
+      document.getElementById("jumpForm").style.display = "none";
+      readerPage.textContent = "";
+    }
 
     function showPage(index) {
-      storyContent.innerHTML = `<h2>${pages[index]}</h2>`;
+      storyContent.innerHTML = formatStoryText(pages[index]);
       pageNum.textContent = `Page ${index + 1} of ${pages.length}`;
+      readerPage.textContent = `${index + 1} / ${pages.length}`;
+      setHeaderProgress((index + 1) / pages.length);
       prevBtn.disabled = index === 0;
       nextBtn.disabled = index === pages.length - 1;
-      // Always scroll back to top on new page
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     prevBtn.addEventListener("click", () => {
-      if (currentPage > 0) {
-        currentPage--;
-        showPage(currentPage);
-      }
+      if (currentPage > 0) showPage(--currentPage);
     });
 
     nextBtn.addEventListener("click", () => {
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-        showPage(currentPage);
-      }
+      if (currentPage < pages.length - 1) showPage(++currentPage);
     });
 
-    // Jump to specific page
-    jumpBtn.addEventListener("click", () => {
+    jumpForm.addEventListener("submit", (e) => {
+      e.preventDefault();
       const page = parseInt(jumpInput.value, 10);
       if (!isNaN(page) && page >= 1 && page <= pages.length) {
         currentPage = page - 1;
         showPage(currentPage);
+        jumpInput.value = "";
       } else {
-        alert(`❌ Please enter a number between 1 and ${pages.length}`);
+        jumpInput.setCustomValidity(`Enter a number between 1 and ${pages.length}`);
+        jumpInput.reportValidity();
       }
     });
+
+    jumpInput.addEventListener("input", () => jumpInput.setCustomValidity(""));
+
+    document.addEventListener("keydown", (e) => {
+      if (!pages.length) return;
+      if (e.key === "ArrowRight" && currentPage < pages.length - 1) showPage(++currentPage);
+      if (e.key === "ArrowLeft" && currentPage > 0) showPage(--currentPage);
+    });
   </script>
+
 </body>
 </html>
